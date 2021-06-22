@@ -1,3 +1,16 @@
 canvas { 
   border: 1px solid black;
+  padding: 0;
+  margin:0 auto 0 auto;
+  display: block;
+
+  height: 456px;
+  width: 800px;
+  background-color: green;
+}
+
+
+header {
+  text-align: center;
+  font-size: 40px;
 }
