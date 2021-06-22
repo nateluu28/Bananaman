@@ -1,6 +1,10 @@
+import Entity from "./Entity";
 
-class Hero {
-  constructor() {
-    
+class Player extends Entity {
+  constructor(pos) {
+    super(pos);
+
   }
+
+
 }
