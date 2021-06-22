@@ -1,3 +1,4 @@
+console.log('webpackis wokring')
 document.addEventListener("DOMContentLoaded", () => {
   let canvas = document.getElementById('board-canvas');
   if (!canvas.getContext){
@@ -14,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const scaledHeight = scale * height;
   
   let img = new Image();
-  img.src = 'https://tcrf.net/images/e/e9/NeoEarlyBomberman.gif';
+  img.src = 'https://github.com/nateluu28/BombermanJs/blob/main/src/assets/NeoEarlyBomberman.png';
   img.onload = function() {
     init();
   };
@@ -27,22 +28,6 @@ document.addEventListener("DOMContentLoaded", () => {
 }
 
 function init() {
-  // drawFrame(0, 0, 0, 0);
-  // drawFrame(1, 0, scaledWidth, 0);
-  // drawFrame(0, 0, scaledWidth * 2, 0);
-  // drawFrame(2, 0, scaledWidth * 3, 0);
-  // drawFrame(0, 1, 0, 0);
-  // drawFrame(1, 1, scaledWidth, 0);
-  // drawFrame(0, 1, scaledWidth * 2, 0);
-  // drawFrame(2, 1, scaledWidth * 3, 0);
-  // drawFrame(0, 2, 0, 0);
-  // drawFrame(1, 2, scaledWidth, 0);
-  // drawFrame(0, 2, scaledWidth * 2, 0);
-  // drawFrame(2, 2, scaledWidth * 3, 0);
-  // drawFrame(0, 3, 0, 0);
-  // drawFrame(1, 3, scaledWidth, 0);
-  // drawFrame(0, 3, scaledWidth * 2, 0);
-  // drawFrame(2, 3, scaledWidth * 3, 0);
   window.requestAnimationFrame(step);
 
   
