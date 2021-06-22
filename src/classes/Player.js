@@ -1,6 +1,6 @@
-import Entity from "./Entity";
+import Character from "./Character";
 
-class Player extends Entity {
+class Player extends Character {
   constructor(pos) {
     super(pos);
 

@@ -1,3 +1,7 @@
+import Game from './classes/Game';
+import GameView from './classes/GameView';
+
+
 const SCALE = 1;
 const WIDTH = 32;
 const HEIGHT = 32;
@@ -50,9 +54,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function drawFrame(img, frameX, frameY, canvasX, canvasY) {
-    ctx.drawImage(img,
-                  frameX * WIDTH, frameY * HEIGHT, WIDTH, HEIGHT,
-                  canvasX, canvasY, SCALED_WIDTH, SCALED_HEIGHT);
+    ctx.drawImage(img, frameX * WIDTH, frameY * HEIGHT, WIDTH, 
+                  HEIGHT,canvasX, canvasY, SCALED_WIDTH, SCALED_HEIGHT);
   }
 
 
@@ -77,12 +80,12 @@ document.addEventListener("DOMContentLoaded", () => {
       hasMoved = true;
     }
 
-    if (keyObj[' '] && !bombPressed){
+    if (keyObj[' '] &&  !bombPressed){
       console.log('space');
       bombPressed = true;
       bombX = posX;
       bombY = posY;
-      setInterval(function() { bombPressed = false; }, 1000);
+      setTimeout(function() { bombPressed = false; }, 2000);
     }
 
     if (hasMoved) {

@@ -1,8 +1,8 @@
-class Entity {
+class Character {
   constructor(options){
     this.pos = options.pos;
     
   }
 }
 
-export default Entity;
+export default Character;
