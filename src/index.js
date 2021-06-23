@@ -62,6 +62,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
+  function findNearestTile (pos){
+    console.log(pos);
+    return (Math.floor((pos + 2) / 64)) * 64;
+  }
 
 
   function gameLoop() {
@@ -87,8 +91,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (keyObj[' '] &&  !bombPressed){
       bombPressed = true;
-      bombX = posX;
-      bombY = posY;
+      bombX = findNearestTile(posX);
+      bombY = findNearestTile(posY);
       setTimeout(function() { 
         bombPressed = false;
         
@@ -110,6 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
       currentLoopIndex = 0;
     }
     if (bombPressed){
+      console.log(bombX,bombY);
       ctx.drawImage(bombImg, bombX, bombY, SCALED_WIDTH, SCALED_HEIGHT);
     }
 
