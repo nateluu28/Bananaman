@@ -1,12 +1,13 @@
 import Game from './classes/Game';
 import GameView from './classes/GameView';
-
+import { drawFrame } from './util/canvas_util';
 
 const SCALE = 2;
 const WIDTH = 32;
 const HEIGHT = 32;
 const SCALED_WIDTH = SCALE * WIDTH;
 const SCALED_HEIGHT = SCALE * HEIGHT;
+
 const CYCLE_LOOP = [0, 1, 0, 2];
 const FACING_DOWN = 2;
 const FACING_UP = 0;
@@ -32,12 +33,13 @@ document.addEventListener("DOMContentLoaded", () => {
   let bombPressed = false;
   let bombX = 0;
   let bombY = 0;
+  let tileImg = new Image();
 
-  let game = new GameView(ctx);
+  loadImage();
+  let game = new GameView(ctx, tileImg);
   // debugger;
 
 
-  loadImage();
   window.addEventListener('keydown', handleKeyDown);
   window.addEventListener('keyup', handleKeyUp);
 
@@ -48,6 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     bombImg.src = 'https://data.whicdn.com/images/27491025/original.png';
+    tileImg.src = 'https://media.moddb.com/images/games/1/32/31122/master-tileset.png';
   }  
 // Event listeners that will handle key presses of movement.
   function handleKeyDown(e) {
@@ -58,10 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
       keyObj[e.key] = false;
   }
 
-  function drawFrame(img, frameX, frameY, canvasX, canvasY) {
-    ctx.drawImage(img, frameX * WIDTH, frameY * HEIGHT, WIDTH, 
-                  HEIGHT,canvasX, canvasY, SCALED_WIDTH, SCALED_HEIGHT);
-  }
+
 
 
   function gameLoop() {
@@ -89,7 +89,10 @@ document.addEventListener("DOMContentLoaded", () => {
       bombPressed = true;
       bombX = posX;
       bombY = posY;
-      setTimeout(function() { bombPressed = false; }, 2000);
+      setTimeout(function() { 
+        bombPressed = false;
+        
+      }, 2000);
     }
 
     if (hasMoved) {
@@ -110,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ctx.drawImage(bombImg, bombX, bombY, SCALED_WIDTH, SCALED_HEIGHT);
     }
 
-    drawFrame(playerImg, CYCLE_LOOP[currentLoopIndex], currentDirection, posX, posY);
+    drawFrame(ctx, playerImg, CYCLE_LOOP[currentLoopIndex], currentDirection, posX, posY);
     window.requestAnimationFrame(gameLoop);
   }
 
