@@ -2,7 +2,7 @@ import Game from './classes/Game';
 import GameView from './classes/GameView';
 
 
-const SCALE = 1;
+const SCALE = 2;
 const WIDTH = 32;
 const HEIGHT = 32;
 const SCALED_WIDTH = SCALE * WIDTH;
@@ -13,12 +13,14 @@ const FACING_UP = 0;
 const FACING_LEFT = 3;
 const FACING_RIGHT = 1;
 const FRAME_LIMIT = 12;
-const MOVEMENT_SPEED = 1;
+const MOVEMENT_SPEED = 2;
 
 
 document.addEventListener("DOMContentLoaded", () => {
   let canvas = document.getElementById('board-canvas');
   let ctx = canvas.getContext('2d');
+  canvas.width = 640;
+  canvas.height = 640;
   let keyObj = {};
   let currentDirection = FACING_DOWN;
   let currentLoopIndex = 0;
@@ -30,6 +32,9 @@ document.addEventListener("DOMContentLoaded", () => {
   let bombPressed = false;
   let bombX = 0;
   let bombY = 0;
+
+  let game = new GameView(ctx);
+  // debugger;
 
 
   loadImage();
@@ -61,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+    game.drawBoard();
     let hasMoved = false;
 
     if (keyObj.w) {
@@ -81,7 +86,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (keyObj[' '] &&  !bombPressed){
-      console.log('space');
       bombPressed = true;
       bombX = posX;
       bombY = posY;
@@ -105,7 +109,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (bombPressed){
       ctx.drawImage(bombImg, bombX, bombY, SCALED_WIDTH, SCALED_HEIGHT);
     }
-
 
     drawFrame(playerImg, CYCLE_LOOP[currentLoopIndex], currentDirection, posX, posY);
     window.requestAnimationFrame(gameLoop);
