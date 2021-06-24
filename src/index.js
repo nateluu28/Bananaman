@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
   canvas.height = 640;
   let keyObj = {};
   let currentDirection = FACING_DOWN;
-  let currentLoopIndex = 0;
+  let curLoopI = 0;
   let frameCount = 0;
   let posX = 0;
   let posY = 0;
@@ -93,9 +93,10 @@ document.addEventListener("DOMContentLoaded", () => {
       bombPressed = true;
       bombX = findNearestTile(posX);
       bombY = findNearestTile(posY);
+      // Add bomb to the game engine
       setTimeout(function() { 
         bombPressed = false;
-        
+        clearInterval(moveBomb);
       }, 2000);
     }
 
@@ -103,22 +104,28 @@ document.addEventListener("DOMContentLoaded", () => {
       frameCount++;
       if (frameCount >= FRAME_LIMIT) {
         frameCount = 0;
-        currentLoopIndex++;
-        if (currentLoopIndex >= CYCLE_LOOP.length) {
-          currentLoopIndex = 0;
+        curLoopI++;
+        if (curLoopI >= CYCLE_LOOP.length) {
+          curLoopI = 0;
         }
       }
     }
 
     if (!hasMoved) {
-      currentLoopIndex = 0;
+      curLoopI = 0;
     }
     if (bombPressed){
-      console.log(bombX,bombY);
+      var moveBomb = setInterval(function(){
+        bombX = bombX % 2 ? bombX += 1 : bombX -=1;
+        bombY = bombY % 2 ? bombY += 1 : bombY -=1;
+      },500);
       ctx.drawImage(bombImg, bombX, bombY, SCALED_WIDTH, SCALED_HEIGHT);
     }
 
-    drawFrame(ctx, playerImg, CYCLE_LOOP[currentLoopIndex], currentDirection, posX, posY);
+    drawFrame(ctx, playerImg, CYCLE_LOOP[curLoopI], currentDirection, posX, posY);
+
+    // game.checkCollision....
+    
     window.requestAnimationFrame(gameLoop);
   }
 
