@@ -1,6 +1,11 @@
 import Game from './classes/Game';
 import GameView from './classes/GameView';
-import { drawFrame } from './util/canvas_util';
+import Player from './classes/Player';
+import Bomb from './classes/Bomb';
+import {
+  drawFrame
+} from './util/canvas_util';
+
 
 const SCALE = 2;
 const WIDTH = 32;
@@ -34,10 +39,12 @@ document.addEventListener("DOMContentLoaded", () => {
   let bombX = 0;
   let bombY = 0;
   let tileImg = new Image();
+  let explosion = false;
 
   loadImage();
-  let game = new GameView(ctx, tileImg);
-  // debugger;
+  let player = new Player([0,0]);
+  let gameView = new GameView(ctx, tileImg);
+  let game = new Game(player);
 
 
   window.addEventListener('keydown', handleKeyDown);
@@ -45,24 +52,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function loadImage() {
     playerImg.src = 'https://tcrf.net/images/e/e9/NeoEarlyBomberman.gif';
-    playerImg.onload = function() {
+    playerImg.onload = function () {
       window.requestAnimationFrame(gameLoop);
     };
 
     bombImg.src = 'https://data.whicdn.com/images/27491025/original.png';
     tileImg.src = 'https://media.moddb.com/images/games/1/32/31122/master-tileset.png';
-  }  
-// Event listeners that will handle key presses of movement.
+  }
+  // Event listeners that will handle key presses of movement.
   function handleKeyDown(e) {
-      keyObj[e.key] = true;
+    keyObj[e.key] = true;
   }
 
   function handleKeyUp(e) {
-      keyObj[e.key] = false;
+    keyObj[e.key] = false;
   }
 
 
-  function findNearestTile (pos){
+  function findNearestTile(pos) {
     console.log(pos);
     return (Math.floor((pos + 2) / 64)) * 64;
   }
@@ -70,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    game.drawBoard();
+    gameView.drawBoard();
     let hasMoved = false;
 
     if (keyObj.w) {
@@ -89,14 +96,20 @@ document.addEventListener("DOMContentLoaded", () => {
       hasMoved = true;
     }
 
-    if (keyObj[' '] &&  !bombPressed){
+    if (keyObj[' '] && !bombPressed) {
       bombPressed = true;
       bombX = findNearestTile(posX);
       bombY = findNearestTile(posY);
       // Add bomb to the game engine
-      setTimeout(function() { 
+      var bomb = new Bomb([bombX, bombY]);
+      game.addObjects(bomb);
+      setTimeout(function () {
         bombPressed = false;
+        explosion = true;
         clearInterval(moveBomb);
+        setTimeout((function () {
+          explosion = false;
+        }), 2000);
       }, 2000);
     }
 
@@ -114,27 +127,33 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!hasMoved) {
       curLoopI = 0;
     }
-    if (bombPressed){
-      var moveBomb = setInterval(function(){
-        bombX = bombX % 2 ? bombX += 1 : bombX -=1;
-        bombY = bombY % 2 ? bombY += 1 : bombY -=1;
-      },500);
+
+    if (explosion) {
+      game.bomb.explode(ctx);
+    }
+
+    if (bombPressed) {
+      var moveBomb = setInterval(function () {
+        bombX = bombX % 2 ? bombX += 1 : bombX -= 1;
+        bombY = bombY % 2 ? bombY += 1 : bombY -= 1;
+      }, 500);
       ctx.drawImage(bombImg, bombX, bombY, SCALED_WIDTH, SCALED_HEIGHT);
     }
 
     drawFrame(ctx, playerImg, CYCLE_LOOP[curLoopI], currentDirection, posX, posY);
 
-    // game.checkCollision....
-    
+    game.checkCollisions();
     window.requestAnimationFrame(gameLoop);
   }
 
   function movePlayer(deltaX, deltaY, direction) {
     if (posX + deltaX > 0 && posX + SCALED_WIDTH + deltaX < canvas.width) {
       posX += deltaX;
+      player.pos[0] = posX;
     }
     if (posY + deltaY > 0 && posY + SCALED_HEIGHT + deltaY < canvas.height) {
       posY += deltaY;
+      player.pos[1] = posY;
     }
     currentDirection = direction;
   }
