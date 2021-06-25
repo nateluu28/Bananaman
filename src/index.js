@@ -43,9 +43,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   loadImage();
   let player = new Player([0,0]);
-  let gameView = new GameView(ctx, tileImg);
   let game = new Game(player);
-
+  let gameView = new GameView(ctx, game);
 
   window.addEventListener('keydown', handleKeyDown);
   window.addEventListener('keyup', handleKeyUp);
@@ -70,7 +69,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   function findNearestTile(pos) {
-    console.log(pos);
     return (Math.floor((pos + 2) / 64)) * 64;
   }
 
@@ -78,6 +76,8 @@ document.addEventListener("DOMContentLoaded", () => {
   function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     gameView.drawBoard();
+    gameView.populateBoard ();
+
     let hasMoved = false;
 
     if (keyObj.w) {
@@ -100,16 +100,18 @@ document.addEventListener("DOMContentLoaded", () => {
       bombPressed = true;
       bombX = findNearestTile(posX);
       bombY = findNearestTile(posY);
+
+
       // Add bomb to the game engine
       var bomb = new Bomb([bombX, bombY]);
       game.addObjects(bomb);
       setTimeout(function () {
-        bombPressed = false;
         explosion = true;
         clearInterval(moveBomb);
         setTimeout((function () {
+          bombPressed = false;
           explosion = false;
-        }), 2000);
+        }), 1000);
       }, 2000);
     }
 
@@ -132,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
       game.bomb.explode(ctx);
     }
 
-    if (bombPressed) {
+    if (bombPressed && !explosion) {
       var moveBomb = setInterval(function () {
         bombX = bombX % 2 ? bombX += 1 : bombX -= 1;
         bombY = bombY % 2 ? bombY += 1 : bombY -= 1;
