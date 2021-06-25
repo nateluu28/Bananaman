@@ -3,11 +3,25 @@ canvas {
   padding: 0;
   margin:0 auto 0 auto;
   display: block;
-
+  z-index: 10;
+  position: absolute;
+  top: 39px;
+  right: 374px;
 }
 
 
 header {
   text-align: center;
   font-size: 40px;
+}
+
+#bg-canvas {
+  border: 1px solid black;
+  padding: 0;
+  margin:0 auto 0 auto;
+  display: block;
+  position: absolute;
+  top: 39px;
+  right: 374px;
+  z-index: 1;
 }

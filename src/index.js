@@ -25,8 +25,14 @@ const MOVEMENT_SPEED = 2;
 document.addEventListener("DOMContentLoaded", () => {
   let canvas = document.getElementById('board-canvas');
   let ctx = canvas.getContext('2d');
+
+  let bgCanvas = document.getElementById('bg-canvas');
+  let ctxBg = bgCanvas.getContext('2d');
+
   canvas.width = 640;
   canvas.height = 640;
+  bgCanvas.width = 640;
+  bgCanvas.height = 640;
   let keyObj = {};
   let currentDirection = FACING_DOWN;
   let curLoopI = 0;
@@ -44,8 +50,9 @@ document.addEventListener("DOMContentLoaded", () => {
   loadImage();
   let player = new Player([0,0]);
   let game = new Game(player);
-  let gameView = new GameView(ctx, game);
-
+  let gameView = new GameView(ctxBg, game);
+  gameView.drawBoard();
+  gameView.populateBoard();
   window.addEventListener('keydown', handleKeyDown);
   window.addEventListener('keyup', handleKeyUp);
 
@@ -75,9 +82,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    gameView.drawBoard();
-    gameView.populateBoard ();
-
     let hasMoved = false;
 
     if (keyObj.w) {

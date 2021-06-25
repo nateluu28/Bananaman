@@ -3,7 +3,8 @@ import Player from "./Player";
 import Bomb from './Bomb';
 class Game {
   constructor(player){
-    this.player = player;
+    this.player = player,
+    this.monsters = [];
   }
 
   addObjects(obj) {
