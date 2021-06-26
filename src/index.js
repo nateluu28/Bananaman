@@ -5,6 +5,7 @@ import Bomb from './classes/Bomb';
 import {
   drawFrame
 } from './util/canvas_util';
+import Monster from './classes/Monster';
 
 
 const SCALE = 2;
@@ -41,17 +42,24 @@ document.addEventListener("DOMContentLoaded", () => {
   let posY = 0;
   let playerImg = new Image();
   let bombImg = new Image();
-  let bombPressed = false;
   let bombX = 0;
   let bombY = 0;
   let tileImg = new Image();
-  let explosion = false;
+  var bombPressed = false;
+  var explosion = false;
 
   loadImage();
   let player = new Player([0,0]);
+  let monster1 = new Monster([1,2]);
+  let monster2 = new Monster([4,5]);
+  let monster3 = new Monster([7,8]);
+
   let game = new Game(player);
   let gameView = new GameView(ctxBg, game);
   gameView.drawBoard();
+  game.addObjects(monster1);
+  game.addObjects(monster2);
+  game.addObjects(monster3);
   gameView.populateBoard();
   window.addEventListener('keydown', handleKeyDown);
   window.addEventListener('keyup', handleKeyUp);
@@ -77,6 +85,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function findNearestTile(pos) {
     return (Math.floor((pos + 2) / 64)) * 64;
+  }
+
+  async function initBomb(bomb, gameView, game) {
+    await sleep(2000);
+    explosion = true;
+    await sleep(1000);
+    bomb.createShards();
+    bombPressed = false;
+    explosion = false;
+    console.log(bomb);
+    game.checkCollisions();
+    gameView.populateBoard();
+  }
+
+  function sleep(ms){
+    return new Promise((accept) => {
+      setTimeout(() => {
+        accept();
+      }, ms);
+    })
   }
 
 
@@ -105,19 +133,13 @@ document.addEventListener("DOMContentLoaded", () => {
       bombX = findNearestTile(posX);
       bombY = findNearestTile(posY);
 
-
-      // Add bomb to the game engine
       var bomb = new Bomb([bombX, bombY]);
       game.addObjects(bomb);
-      setTimeout(function () {
-        explosion = true;
-        clearInterval(moveBomb);
-        setTimeout((function () {
-          bombPressed = false;
-          explosion = false;
-        }), 1000);
-      }, 2000);
+
+      initBomb(bomb, gameView, game);
     }
+
+
 
     if (hasMoved) {
       frameCount++;
@@ -147,8 +169,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     drawFrame(ctx, playerImg, CYCLE_LOOP[curLoopI], currentDirection, posX, posY);
-
-    game.checkCollisions();
+    console.log(game.bomb)
+    // game.checkCollisions();
     window.requestAnimationFrame(gameLoop);
   }
 

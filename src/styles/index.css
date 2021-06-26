@@ -5,8 +5,8 @@ canvas {
   display: block;
   z-index: 10;
   position: absolute;
-  top: 39px;
-  right: 374px;
+  top: 115px;
+  right: 640px;
 }
 
 
@@ -21,7 +21,7 @@ header {
   margin:0 auto 0 auto;
   display: block;
   position: absolute;
-  top: 39px;
-  right: 374px;
+  top: 115px;
+  right: 640px;
   z-index: 1;
 }

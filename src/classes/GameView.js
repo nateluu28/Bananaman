@@ -6,6 +6,7 @@ class GameView {
     this.ctx = ctx;
     this.game = game;
     this.tile = new Image();
+    this.drawBoard = this.drawBoard.bind(this);
   }
 
   // ground image
@@ -27,12 +28,18 @@ class GameView {
   }
 
   populateBoard() {
-    let monsterSpawns = [[1,2], [4,5], [7,8]];
-    for (let i = 0; i < monsterSpawns.length; i++){
-      let newMonster = new Monster(monsterSpawns[i]);
-      this.ctx.drawImage(newMonster.monsterImg, 0 * 64, 0 * 64, 64, 64, newMonster.pos[0] * 64, newMonster.pos[1] * 64, 64, 64);
-      this.game.monsters.push(newMonster);
-      console.log(this.game);
+    debugger
+    this.ctx.clearRect(0, 0, 640, 640);
+    this.drawBoard();
+    debugger
+    for (let i = 0; i < this.game.monsters.length; i++) {
+      let ctx = this.ctx;
+      let currMonster = this.game.monsters[i];
+      currMonster.monsterImg.onload = function() {
+        ctx.drawImage(currMonster.monsterImg, 0 * 64, 0 * 64, 64, 64, currMonster.pos[0] * 64, currMonster.pos[1] * 64, 64, 64);
+      }
+      debugger;
+      ctx.drawImage(currMonster.monsterImg, 0 * 64, 0 * 64, 64, 64, currMonster.pos[0] * 64, currMonster.pos[1] * 64, 64, 64);
     }
   }
 

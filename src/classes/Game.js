@@ -1,6 +1,7 @@
 
 import Player from "./Player";
 import Bomb from './Bomb';
+import Monster from "./Monster";
 class Game {
   constructor(player){
     this.player = player,
@@ -12,23 +13,28 @@ class Game {
       this.bomb = obj;
     } else if (obj instanceof Player){
       this.player = obj;
+    } else if (obj instanceof Monster){
+      this.monsters.push(obj);
     }
   }
 
   checkCollisions(){
-    const allObject = [this.player, this.bomb];
     if (this.bomb === undefined) return false;
-    for (let i = 0; i < allObject.length; i++){
-      for (let j = i + 1; j < allObject.length; j++){
-        if(allObject[i].isCollided(allObject[j])){
-            // Add ur collision here
-            return true;
+    if(this.bomb && this.bomb.shards.length !== 0){
+      debugger;
+      for (let i = 0; i < this.monsters.length; i++){
+        for (let j = 0; j < this.bomb.shards.length; j++){
+          if(this.monsters[i].isCollidedWithShard(this.bomb.shards[j])) {
+            this.monsters = this.monsters.splice(i, 1);
+            // Remove the monster from the index
+            debugger
           }
-      }
-    }
-    return false;
-  }
 
+        }
+      }
+      // debugger
+    }
+  }
 }
 
 export default Game;
