@@ -20,14 +20,13 @@ class Game {
 
   checkCollisions(){
     if (this.bomb === undefined) return false;
+    if (this.monsters.length === 0) return false;
     if(this.bomb && this.bomb.shards.length !== 0){
-      debugger;
       for (let i = 0; i < this.monsters.length; i++){
         for (let j = 0; j < this.bomb.shards.length; j++){
           if(this.monsters[i].isCollidedWithShard(this.bomb.shards[j])) {
-            this.monsters = this.monsters.splice(i, 1);
-            // Remove the monster from the index
-            debugger
+            this.monsters.splice(i, 1);
+            return;
           }
 
         }

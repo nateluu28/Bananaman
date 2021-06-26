@@ -169,8 +169,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     drawFrame(ctx, playerImg, CYCLE_LOOP[curLoopI], currentDirection, posX, posY);
-    console.log(game.bomb)
-    // game.checkCollisions();
     window.requestAnimationFrame(gameLoop);
   }
 
