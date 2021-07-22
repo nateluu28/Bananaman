@@ -52,9 +52,55 @@ header {
   padding: 50px;
 }
 
-.button {
+.game-menu {
+  box-sizing: border-box;
+  background-color: black;
+  /* border: red 2px solid; */
+  position: absolute;
+  margin: 0 auto 0 auto;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  width: 900px;
+  height: 660px;
+  padding: 50px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.game-menu {
-  background-color: white;
+.game-menu button {
+  font-size: 30px;
+  font-family: inherit;
+  padding: 10px;
+  margin: 15px;
+  background-color: black;
+  color: white;
+  border: none;
+}
+
+.hover-animation {
+  display: inline-block;
+  position: relative;
+  color: #f1e318;
+}
+
+.hover-animation:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #f1e318;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.hover-animation:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
 }
