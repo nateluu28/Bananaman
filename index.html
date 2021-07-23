@@ -4,23 +4,44 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="description" content="Bananaman is a 2d grid game that allows the user to move and shoot out bananas to destroy slimes" />
+    <meta property="og:title" content="Bananaman" />
+    <!-- <meta property="og:image" content="" /> -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="./src/styles/reset.css" />
     <link rel="stylesheet" type="text/css" href="./src/styles/index.css" />
+    <link rel="icon" type="image/png" href="./src/assets/banana.png" />
+    
     <script type="application/javascript" src="./main.js"></script>
     <title>Banana Man</title>
 </head>
 
 <body>
     <div id="game">
-        <header>Banana Man</header>
+        <header>
+            <img src="https://data.whicdn.com/images/27491025/original.png">
+            <span>Banana Man</span>
+            <img src="https://data.whicdn.com/images/27491025/original.png">
+        </header>
+        <div class="scoreboard hidden">
+            <span>Slimes left: 3</span>
+        </div>
         <canvas id="board-canvas" class="board-canvas"></canvas>
         <canvas id="bg-canvas" class="bg-canvas"></canvas>
         <div class="game-menu">
-            <button class="hover-animation">START</button>
-            <button class="hover-animation">INSTRUCTIONS</button>
+            <button class="hover-animation start">START</button>
+            <button class="hover-animation instructionsBtn">INSTRUCTIONS</button>
+        </div>
+        <div class="instructions hidden">
+            <div class="instructions-container">
+                <p>W,A,S,D - Move your character</p>
+                <p>SPACEBAR - Place down banana</p>
+                <span>Your mission is to destroy all slimes by placing bananas near them.</span>
+            </div>
+            <button class="hover-animation goBack">GO BACK</button>
         </div>
     </div>
 

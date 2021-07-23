@@ -24,6 +24,29 @@ const MOVEMENT_SPEED = 2;
 
 
 document.addEventListener("DOMContentLoaded", () => {
+  const playButton = document.getElementsByClassName("start")[0];
+  const goBack = document.getElementsByClassName("goBack")[0];
+  const scoreboard = document.getElementsByClassName("scoreboard")[0];
+  const instructionsBtn = document.getElementsByClassName("instructionsBtn")[0];
+  const instructionsContainer = document.getElementsByClassName("instructions")[0];
+
+  const gameMenu = document.getElementsByClassName("game-menu")[0];
+
+
+  playButton.addEventListener('click', () => {
+    gameMenu.classList.add('hidden');
+    scoreboard.classList.remove('hidden');
+  });
+
+  instructionsBtn.addEventListener('click', () => {
+    instructionsContainer.classList.remove('hidden');
+  });
+
+  goBack.addEventListener('click', () => {
+    instructionsContainer.classList.add('hidden');
+  });
+
+
   let canvas = document.getElementById('board-canvas');
   let ctx = canvas.getContext('2d');
 

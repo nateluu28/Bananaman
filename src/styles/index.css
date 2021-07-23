@@ -50,6 +50,17 @@ header {
 header {
   color: white;
   padding: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+header span {
+  margin: 15px;
+}
+img {
+  width: 80px;
+  height: 80px;
 }
 
 .game-menu {
@@ -71,7 +82,8 @@ header {
   align-items: center;
 }
 
-.game-menu button {
+.game-menu button,
+.instructions button {
   font-size: 30px;
   font-family: inherit;
   padding: 10px;
@@ -103,4 +115,40 @@ header {
 .hover-animation:hover:after {
   transform: scaleX(1);
   transform-origin: bottom left;
+}
+
+.instructions {
+  box-sizing: border-box;
+  background-color: black;
+  color: white;
+  position: absolute;
+  margin: 0 auto 0 auto;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  width: 1100px;
+  height: 660px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 30px;
+}
+
+.hidden {
+  display: none;
+}
+.instructions-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 400px;
+  border: 1px solid white;
+  padding: 0px 50px;
+}
+
+.scoreboard {
+  color: #faff00;
+  text-align: center;
+  padding: 15px;
 }
