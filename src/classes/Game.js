@@ -26,13 +26,14 @@ class Game {
         for (let j = 0; j < this.bomb.shards.length; j++){
           if(this.monsters[i].isCollidedWithShard(this.bomb.shards[j])) {
             this.monsters.splice(i, 1);
-            return;
+            return true;
           }
 
         }
       }
       // debugger
     }
+    return false;
   }
 }
 

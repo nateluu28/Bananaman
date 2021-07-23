@@ -15,19 +15,36 @@
     <link rel="stylesheet" type="text/css" href="./src/styles/index.css" />
     <link rel="icon" type="image/png" href="./src/assets/banana.png" />
     
+    <script src="https://kit.fontawesome.com/90962b584a.js" crossorigin="anonymous"></script>
     <script type="application/javascript" src="./main.js"></script>
     <title>Banana Man</title>
 </head>
 
 <body>
     <div id="game">
-        <header>
-            <img src="https://data.whicdn.com/images/27491025/original.png">
-            <span>Banana Man</span>
-            <img src="https://data.whicdn.com/images/27491025/original.png">
-        </header>
-        <div class="scoreboard hidden">
-            <span>Slimes left: 3</span>
+        <div class="top-bar">
+            <header>
+                <img src="https://data.whicdn.com/images/27491025/original.png">
+                <span>Banana Man</span>
+                <img src="https://data.whicdn.com/images/27491025/original.png">
+            </header>
+            <div class="scoreboard hidden">
+                <button class="instructionsBtn">Instructions</button>
+                <span class="span-scoreboard">Slimes left: 3</span>
+                <div>
+                    <a href="https://www.linkedin.com/in/nathan-luu/" target="_blank"><i class="fab fa-linkedin fa-2x"></i></a>
+                    <a href="https://github.com/nateluu28/bananaman" target="_blank"><i class="fab fa-github fa-2x"></i></a>
+                    <a href="https://angel.co/u/nathan-luu-1" target="_blank"><i class="fab fa-angellist fa-2x"></i></a>
+                </div>
+            </div>
+            <div class="banner hidden">
+                <h2>Welcome to the game of Bananaman!</h2>
+                <p>
+                    Your mission today is to destroy all of the slimes that 
+                    inhabit our world. Only you are destined to defeat these slimes!
+                </p>
+                <span class="flash">Click anywhere to start!</span>
+            </div>
         </div>
         <canvas id="board-canvas" class="board-canvas"></canvas>
         <canvas id="bg-canvas" class="bg-canvas"></canvas>

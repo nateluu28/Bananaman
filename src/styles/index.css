@@ -12,11 +12,6 @@ canvas {
   position: absolute;
 }
 
-header {
-  text-align: center;
-  font-size: 40px;
-}
-
 .bg-canvas {
   border: 1px solid black;
   padding: 0;
@@ -48,8 +43,10 @@ header {
 }
 
 header {
+  text-align: center;
+  font-size: 40px;
+  margin: 15px;
   color: white;
-  padding: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -135,7 +132,7 @@ img {
   font-size: 30px;
 }
 
-.hidden {
+#game .hidden {
   display: none;
 }
 .instructions-container {
@@ -150,5 +147,94 @@ img {
 .scoreboard {
   color: #faff00;
   text-align: center;
-  padding: 15px;
+  padding-bottom: 15px;
+  display: flex;
+  width: 640px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.top-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.scoreboard button {
+  font-size: 13px;
+  font-family: inherit;
+  padding: 10px;
+  background-color: black;
+  color: white;
+  border: 1px solid yellow;
+  border-radius: 8px;
+}
+
+.scoreboard button:hover {
+  color: black;
+  background-color: white;
+}
+
+.scoreboard span {
+  font-size: 13px;
+}
+
+.scoreboard a {
+  text-decoration: none;
+  color: rgb(21, 206, 206);
+}
+
+.scoreboard a:hover {
+  color: yellow;
+}
+
+.banner {
+  color: white;
+  background-color: rgba(46, 43, 43, 0.7);
+  border: 1px solid white;
+  z-index: 10000;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+  width: 60%;
+  font-size: 16px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding-left: 130px;
+  padding-right: 130px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.banner h2 {
+  font-size: 30px;
+  text-align: center;
+}
+
+.banner span {
+  color: coral;
+  text-align: center;
+}
+
+.flash {
+  -webkit-animation-name: flash;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation-direction: alternate;
+}
+
+@-webkit-keyframes flash {
+  from {
+    color: rgb(26, 173, 173);
+  }
+
+  to {
+    color: coral;
+  }
 }

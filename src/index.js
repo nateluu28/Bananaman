@@ -23,29 +23,35 @@ const FRAME_LIMIT = 12;
 const MOVEMENT_SPEED = 2;
 
 
+
+
 document.addEventListener("DOMContentLoaded", () => {
   const playButton = document.getElementsByClassName("start")[0];
   const goBack = document.getElementsByClassName("goBack")[0];
   const scoreboard = document.getElementsByClassName("scoreboard")[0];
-  const instructionsBtn = document.getElementsByClassName("instructionsBtn")[0];
+  const instructionsBtns = document.getElementsByClassName("instructionsBtn");
   const instructionsContainer = document.getElementsByClassName("instructions")[0];
-
   const gameMenu = document.getElementsByClassName("game-menu")[0];
-
+  const banner = document.getElementsByClassName("banner")[0];
+  const spanScore = document.getElementsByClassName("span-scoreboard")[0];
 
   playButton.addEventListener('click', () => {
     gameMenu.classList.add('hidden');
     scoreboard.classList.remove('hidden');
+    banner.classList.remove('hidden');
   });
 
-  instructionsBtn.addEventListener('click', () => {
-    instructionsContainer.classList.remove('hidden');
-  });
+  for ( let i = 0; i < instructionsBtns.length; i++ ){
+    instructionsBtns[i].addEventListener('click', () => {
+      instructionsContainer.classList.remove('hidden');
+    });
+  }
 
   goBack.addEventListener('click', () => {
     instructionsContainer.classList.add('hidden');
   });
 
+  
 
   let canvas = document.getElementById('board-canvas');
   let ctx = canvas.getContext('2d');
@@ -70,6 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let tileImg = new Image();
   var bombPressed = false;
   var explosion = false;
+  var monsters = 3;
 
   loadImage();
   let player = new Player([0,0]);
@@ -86,6 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
   gameView.populateBoard();
   window.addEventListener('keydown', handleKeyDown);
   window.addEventListener('keyup', handleKeyUp);
+
 
   function loadImage() {
     playerImg.src = 'https://tcrf.net/images/e/e9/NeoEarlyBomberman.gif';
@@ -117,9 +125,20 @@ document.addEventListener("DOMContentLoaded", () => {
     bomb.createShards();
     bombPressed = false;
     explosion = false;
-    console.log(bomb);
-    game.checkCollisions();
+    if (game.checkCollisions()){
+      monsters--;
+      spanScore.innerHTML = "Slimes left: " + monsters;
+      if (monsters === 0) {
+        winGame();
+      }
+    }
     gameView.populateBoard();
+  }
+
+  function winGame() {
+    // unhide the banner and change the innner html!!
+    banner.innerHTML = 'Congrats! You have defeated the slimes and saved the village! You win!'
+    banner.classList.remove('hidden');
   }
 
   function sleep(ms){
@@ -207,4 +226,19 @@ document.addEventListener("DOMContentLoaded", () => {
     currentDirection = direction;
   }
 
+
+
+});
+
+document.addEventListener('mouseup', function(e) {
+  let banner = document.getElementsByClassName('banner')[0];
+  if (banner.style.display !== 'none') {
+    banner.classList.add('hidden');
+  }
+});
+document.addEventListener('keydown', function(e) {
+  let banner = document.getElementsByClassName('banner')[0];
+  if (banner.style.display !== 'none') {
+    banner.classList.add('hidden');
+  }
 });
