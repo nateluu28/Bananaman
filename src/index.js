@@ -226,7 +226,10 @@ document.addEventListener("DOMContentLoaded", () => {
     currentDirection = direction;
   }
 
-
+  function resetGame() {
+    // This is where the game will be reset after each complete 
+    // and we will add more levels
+  }
 
 });
 
